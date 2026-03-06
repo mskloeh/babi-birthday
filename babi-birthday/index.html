@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday, Babi! 🎀</title>
+
+  <!-- Google Fonts fallback for script-style fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== FONT FACES ===== */
+    @font-face {
+      font-family: 'Boston Angel';
+      src: url('assets/fonts/Boston Angel Regular.otf') format('opentype'),
+           url('assets/fonts/Boston Angel Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Boston Angel';
+      src: url('assets/fonts/Boston Angel Bold.otf') format('opentype'),
+           url('assets/fonts/Boston Angel Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'New Icon Script';
+      src: url('assets/fonts/New-Icon-Script-Exfont1157.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* ===== TAP TO OPEN SPLASH ===== */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-asset {
+      max-width: 70%;
+      max-height: 70vh;
+      object-fit: contain;
+      animation: gentlePulse 5s ease-in-out infinite;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+      50% {
+        transform: scale(1.05);
+        filter: brightness(1.05);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    /* ===== SECTION 1 — LANDING / HERO ===== */
+    .section-1 {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      background-color: #EACFDC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding: 20px 10px 60px 10px;
+    }
+
+    /* Heart-shaped layout container */
+    .heart-layout {
+      position: relative;
+      width: 100%;
+      max-width: 390px;
+      aspect-ratio: 3 / 4.5;
+      margin: 0 auto;
+    }
+
+    /* ===== STICKER BASE STYLES ===== */
+    .sticker {
+      position: absolute;
+      z-index: 2;
+    }
+
+    .sticker img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.12));
+    }
+
+    /* Babi & cat stickers use fixed height, so img fills by height */
+    .sticker-babi1 img,
+    .sticker-babi2 img,
+    .sticker-cat1 img,
+    .sticker-cat2 img,
+    .sticker-cat3 img,
+    .sticker-cat4 img,
+    .sticker-cat5 img,
+    .sticker-cat6 img {
+      width: auto;
+      height: 100%;
+    }
+
+    /* ===== WIGGLE ANIMATION ===== */
+    @keyframes wiggle1 {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      25% { transform: rotate(1.2deg) translateY(-2px); }
+      50% { transform: rotate(-0.8deg) translateY(1px); }
+      75% { transform: rotate(1deg) translateY(-1px); }
+    }
+
+    @keyframes wiggle2 {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      25% { transform: rotate(-1deg) translateY(-1.5px); }
+      50% { transform: rotate(1.2deg) translateY(1.5px); }
+      75% { transform: rotate(-0.6deg) translateY(-1px); }
+    }
+
+    @keyframes wiggle3 {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      25% { transform: rotate(0.8deg) translateX(1.5px); }
+      50% { transform: rotate(-1deg) translateX(-1px); }
+      75% { transform: rotate(0.5deg) translateX(1px); }
+    }
+
+    .wiggle-1 { animation: wiggle1 3s ease-in-out infinite; }
+    .wiggle-2 { animation: wiggle2 3.5s ease-in-out infinite; }
+    .wiggle-3 { animation: wiggle3 4s ease-in-out infinite; }
+
+    /* ===== STICKER POSITIONS (Heart shape) ===== */
+
+    /* Top cleft — two small cats at top-left and top-right */
+    .sticker-cat1 {
+      top: 0%;
+      left: 18%;
+      height: 20%;
+      width: auto;
+    }
+
+    .sticker-cat2 {
+      top: -1%;
+      right: 16%;
+      height: 18%;
+      width: auto;
+    }
+
+    /* Left lobe — babi1 (bestfriend photo, holding cat) */
+    .sticker-babi1 {
+      top: 38%;
+      left: 2%;
+      height: 34%;
+      width: auto;
+      z-index: 1;
+    }
+
+    /* Right lobe — babi2 (bestfriend photo, holding cat) */
+    .sticker-babi2 {
+      top: 37%;
+      right: -4%;
+      height: 35%;
+      width: auto;
+      z-index: 1;
+    }
+
+    /* Center group — asset8 + text as one unit */
+    .center-group {
+      position: absolute;
+      top: 18%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 70%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .center-text-bg {
+      width: 100%; /* scales with the group width */
+      height: auto;
+      display: block;
+    }
+
+    .center-text {
+      position: absolute;
+      text-align: center;
+      width: 140%; /* can be wider/narrower than asset8 independently */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .center-text h1 {
+      font-family: 'Boston Angel', 'Great Vibes', 'Dancing Script', cursive;
+      font-size: clamp(24px, 6.5vw, 38px);
+      color: #d96e8c;
+      font-weight: normal;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      text-shadow: 0 1px 3px rgba(217, 110, 140, 0.15);
+    }
+
+    .center-text p {
+      font-family: 'New Icon Script', 'Dancing Script', cursive;
+      font-size: clamp(10.7px, 2.7vw, 14.7px);
+      color: #c8526d;
+      font-weight: normal;
+      line-height: 1.4;
+      font-style: normal;
+      -webkit-text-stroke: 0.7px #c8526d;
+    }
+
+    /* Center cat — cat3 inside the heart, below text */
+    .sticker-cat3 {
+      top: 58%;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 15%;
+      width: auto;
+      z-index: 2;
+    }
+    .sticker-cat3.wiggle-1 {
+      animation: wiggle1cat3 3s ease-in-out infinite;
+    }
+    @keyframes wiggle1cat3 {
+      0%, 100% { transform: translateX(-50%) rotate(0deg) translateY(0); }
+      25% { transform: translateX(-50%) rotate(1.2deg) translateY(-2px); }
+      50% { transform: translateX(-50%) rotate(-0.8deg) translateY(1px); }
+      75% { transform: translateX(-50%) rotate(1deg) translateY(-1px); }
+    }
+
+    /* Bottom point of heart — three cats converging toward bottom */
+    .sticker-cat4 {
+      bottom: 8%;
+      left: 12%;
+      height: 15%;
+      width: auto;
+    }
+
+    .sticker-cat5 {
+      bottom: 0%;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 15%;
+      width: auto;
+    }
+    .sticker-cat5.wiggle-2 {
+      animation: wiggle2cat5 3.5s ease-in-out infinite;
+    }
+    @keyframes wiggle2cat5 {
+      0%, 100% { transform: translateX(-50%) rotate(0deg) translateY(0); }
+      25% { transform: translateX(-50%) rotate(-1deg) translateY(-1.5px); }
+      50% { transform: translateX(-50%) rotate(1.2deg) translateY(1.5px); }
+      75% { transform: translateX(-50%) rotate(-0.6deg) translateY(-1px); }
+    }
+
+    .sticker-cat6 {
+      bottom: 8%;
+      right: 12%;
+      height: 15%;
+      width: auto;
+    }
+
+    /* ===== BOW TRANSITION ===== */
+    .bow-transition {
+      position: relative;
+      z-index: 10;
+      width: 42%;
+      margin: 0 auto;
+      margin-top: -3%;
+      margin-bottom: -18%;
+      text-align: center;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+      line-height: 0;
+    }
+
+    .bow-transition img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* ===== SECTION 2 ===== */
+    .section-2 {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #B3BBA4;
+    }
+
+    .section-2::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('assets/stickers/overlay.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.2;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .section-2 > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-2-asset {
+      display: flex;
+      justify-content: center;
+      padding-top: 60px;
+    }
+
+    .section-2-asset img {
+      width: 60%;
+      height: auto;
+      filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.12));
+    }
+
+    /* ===== SECTION 3 ===== */
+    .section-3 {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #e47490;
+    }
+
+    .section-3-asset {
+      display: flex;
+      justify-content: center;
+      padding-top: 60px;
+    }
+
+    .section-3-asset img {
+      width: 100%;
+      height: auto;
+    }
+
+    /* ===== COQUETTE LACE BUTTONS ===== */
+    .lace-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 100px 20px 40px 20px;
+    }
+
+    .lace-btn {
+      font-family: 'Boston Angel', 'Great Vibes', 'Dancing Script', cursive;
+      font-size: clamp(16px, 4.5vw, 22px);
+      color: #d96e8c;
+      background-color: #FFFFFF;
+      border: 2px solid #f5c6d0;
+      border-radius: 30px;
+      padding: 12px 28px;
+      cursor: pointer;
+      position: relative;
+      box-shadow:
+        0 2px 8px rgba(217, 110, 140, 0.15),
+        inset 0 0 0 3px #FFFFFF,
+        inset 0 0 0 5px #f5c6d0;
+      outline: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+
+    .lace-btn::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border: 1.5px dashed #f0a8b8;
+      border-radius: 36px;
+      pointer-events: none;
+    }
+
+    .lace-btn:active {
+      transform: scale(0.95);
+      box-shadow:
+        0 1px 4px rgba(217, 110, 140, 0.15),
+        inset 0 0 0 3px #FFFFFF,
+        inset 0 0 0 5px #f5c6d0;
+    }
+
+    /* ===== MUSICAL NOTES ANIMATION ===== */
+    .notes-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 8000;
+      overflow: hidden;
+    }
+
+    .music-note {
+      position: absolute;
+      font-size: 24px;
+      color: #959f64;
+      opacity: 0;
+      animation: floatNote 2.5s ease-in-out forwards;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes floatNote {
+      0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg) scale(0.5);
+      }
+      15% {
+        opacity: 1;
+        transform: translateY(-30px) rotate(15deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(-120px) rotate(-10deg) scale(1.1);
+      }
+      85% {
+        opacity: 0.4;
+        transform: translateY(-220px) rotate(20deg) scale(0.9);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-300px) rotate(-15deg) scale(0.6);
+      }
+    }
+
+    /* ===== SECTION 4 ===== */
+    .section-4 {
+      position: relative;
+      width: 100%;
+      background-color: #B3BBA4;
+    }
+
+    .section-4-asset {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+    }
+
+    .section-4-asset img {
+      max-width: 80%;
+      height: auto;
+      animation: danceBounce 3s ease-in-out infinite;
+    }
+
+    @keyframes danceBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      20% { transform: translateY(-8px) rotate(1.5deg); }
+      40% { transform: translateY(-3px) rotate(-1deg); }
+      60% { transform: translateY(-10px) rotate(1deg); }
+      80% { transform: translateY(-4px) rotate(-1.5deg); }
+    }
+
+    .section-4-ending {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .section-4-ending img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ===== FADE-IN ON LOAD ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger the fade-in for stickers */
+    .sticker:nth-child(1) { transition-delay: 0.1s; }
+    .sticker:nth-child(2) { transition-delay: 0.2s; }
+    .sticker:nth-child(3) { transition-delay: 0.3s; }
+    .sticker:nth-child(4) { transition-delay: 0.4s; }
+    .sticker:nth-child(5) { transition-delay: 0.5s; }
+    .sticker:nth-child(6) { transition-delay: 0.6s; }
+    .sticker:nth-child(7) { transition-delay: 0.7s; }
+    .sticker:nth-child(8) { transition-delay: 0.8s; }
+    .center-group { transition-delay: 0.3s; }
+
+    /* ===== MOBILE-ONLY DESIGN ===== */
+    /* Lock to phone width — on larger screens, center in a phone frame */
+    .phone-wrapper {
+      width: 100%;
+      max-width: 430px; /* iPhone 15 Pro Max width */
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100svh;
+      position: relative;
+      overflow-x: hidden;
+      background-color: #EACFDC;
+    }
+
+    /* On desktop: show a phone-like frame for dev preview */
+    @media (min-width: 500px) {
+      body {
+        background: #2c2c2c;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+      }
+
+      .phone-wrapper {
+        max-width: 390px; /* iPhone 14/15 standard */
+        min-height: 100vh;
+        border-left: 3px solid #444;
+        border-right: 3px solid #444;
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .heart-layout {
+        max-width: 340px;
+      }
+      .center-text h1 {
+        font-size: 26px;
+      }
+      .center-text p {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== SPLASH SCREEN (tap to start music) ===== -->
+  <div class="splash-screen" id="splashScreen">
+    <img class="splash-asset" src="assets/stickers/asset7.png" alt="tap to open" />
+  </div>
+
+  <!-- ===== BACKGROUND MUSIC ===== -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- Place your MP3 file in assets/audio/ and update the src -->
+    <source src="assets/audio/background-music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ===== PHONE WRAPPER — locks layout to mobile width ===== -->
+  <div class="phone-wrapper">
+
+  <!-- ===== SECTION 1 — LANDING ===== -->
+  <section class="section-1" id="section1">
+    <div class="heart-layout">
+
+      <!-- Top cleft of heart: two cats -->
+      <div class="sticker sticker-cat1 wiggle-1 fade-in">
+        <img src="assets/stickers/cat1.png" alt="kitty" />
+      </div>
+      <div class="sticker sticker-cat2 wiggle-3 fade-in">
+        <img src="assets/stickers/cat2.png" alt="kitty" />
+      </div>
+
+      <!-- Left lobe: bestfriend photo 1 -->
+      <div class="sticker sticker-babi1 wiggle-2 fade-in">
+        <img src="assets/stickers/babi1.png" alt="Babi" />
+      </div>
+
+      <!-- Right lobe: bestfriend photo 2 -->
+      <div class="sticker sticker-babi2 wiggle-3 fade-in">
+        <img src="assets/stickers/babi2.png" alt="Babi" />
+      </div>
+
+      <!-- Center group: asset8 + text centered together -->
+      <div class="center-group fade-in">
+        <img class="center-text-bg" src="assets/stickers/asset8.png" alt="" />
+        <div class="center-text">
+          <h1>happy birthday, babi!</h1>
+          <p>
+            my future maid of honor, my ride or die,<br />
+            and my wife. i wuvu!
+          </p>
+        </div>
+      </div>
+
+      <!-- Center cat: inside the heart, below text -->
+      <div class="sticker sticker-cat3 wiggle-1 fade-in">
+        <img src="assets/stickers/cat3.png" alt="kitty" />
+      </div>
+
+      <!-- Bottom point of heart: three cats -->
+      <div class="sticker sticker-cat4 wiggle-2 fade-in">
+        <img src="assets/stickers/cat4.png" alt="kitty" />
+      </div>
+      <div class="sticker sticker-cat5 wiggle-2 fade-in">
+        <img src="assets/stickers/cat5.png" alt="kitty" />
+      </div>
+      <div class="sticker sticker-cat6 wiggle-3 fade-in">
+        <img src="assets/stickers/cat6.png" alt="kitty" />
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Bow transition element — sits between sections -->
+  <div class="bow-transition">
+    <img src="assets/stickers/bow.png" alt="bow" />
+  </div>
+
+  <!-- ===== SECTION 2 ===== -->
+  <section class="section-2" id="section2">
+    <div class="section-2-asset">
+      <img src="assets/stickers/asset1.png" alt="asset" />
+    </div>
+    <div class="section-2-asset">
+      <img src="assets/stickers/asset2.png" alt="asset" />
+    </div>
+    <div class="section-2-asset">
+      <img src="assets/stickers/asset3.png" alt="asset" />
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3 ===== -->
+  <section class="section-3" id="section3">
+    <div class="section-3-asset">
+      <img src="assets/stickers/asset4.png" alt="asset" />
+    </div>
+    <div class="lace-buttons">
+  <button class="lace-btn" data-voice="sis">sis</button>
+  <button class="lace-btn" data-voice="babi">babi</button>
+    </div>
+
+    <!-- Voice recordings -->
+    <audio id="voice-sis" preload="auto">
+      <source src="assets/audio/sis.m4a" type="audio/mp4" />
+    </audio>
+    <audio id="voice-babi" preload="auto">
+      <source src="assets/audio/babi.mp3" type="audio/mpeg" />
+    </audio>
+  </section>
+
+  <!-- Musical notes overlay -->
+  <div class="notes-overlay" id="notesOverlay"></div>
+
+  <!-- ===== SECTION 4 ===== -->
+  <section class="section-4" id="section4">
+    <div class="section-4-asset">
+      <img src="assets/stickers/asset5.png" alt="asset" />
+    </div>
+    <div class="section-4-ending">
+      <img src="assets/stickers/asset6.png" alt="ending line" />
+    </div>
+  </section>
+
+  </div><!-- END .phone-wrapper -->
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ===== SPLASH SCREEN & MUSIC =====
+    const splash = document.getElementById('splashScreen');
+    const bgMusic = document.getElementById('bgMusic');
+
+    splash.addEventListener('click', () => {
+      splash.classList.add('hidden');
+
+      // Start background music
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(err => {
+        console.log('Music autoplay blocked:', err);
+      });
+
+      // Trigger fade-in animations
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 300);
+    });
+
+    // Also handle touch for mobile
+    splash.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      splash.click();
+    });
+
+    // ===== MUSIC VOLUME CONTROL (for later voice message sections) =====
+    // These functions will be used in Section 3
+    window.duckMusic = function () {
+      const fadeOut = setInterval(() => {
+        if (bgMusic.volume > 0.01) {
+          bgMusic.volume = Math.max(0, bgMusic.volume - 0.03);
+        } else {
+          bgMusic.volume = 0.01;
+          clearInterval(fadeOut);
+        }
+      }, 50);
+    };
+
+    window.restoreMusic = function () {
+      const fadeIn = setInterval(() => {
+        if (bgMusic.volume < 0.4) {
+          bgMusic.volume = Math.min(0.4, bgMusic.volume + 0.02);
+        } else {
+          bgMusic.volume = 0.4;
+          clearInterval(fadeIn);
+        }
+      }, 60);
+    };
+
+    // ===== MUSICAL NOTES + VOICE MESSAGES =====
+    const notesOverlay = document.getElementById('notesOverlay');
+    const noteSymbols = ['♪', '♫', '♬'];
+    let notesInterval = null;
+    let currentVoice = null;
+
+    function spawnNote() {
+      const note = document.createElement('span');
+      note.classList.add('music-note');
+      note.textContent = noteSymbols[Math.floor(Math.random() * noteSymbols.length)];
+      note.style.left = Math.random() * 100 + '%';
+      note.style.top = (40 + Math.random() * 50) + '%';
+      note.style.fontSize = (18 + Math.random() * 16) + 'px';
+      note.style.animationDuration = (1.8 + Math.random() * 1.5) + 's';
+      notesOverlay.appendChild(note);
+
+      // Remove note after animation ends
+      note.addEventListener('animationend', () => note.remove());
+    }
+
+    function startNotes() {
+      notesInterval = setInterval(spawnNote, 250);
+    }
+
+    function stopNotes() {
+      clearInterval(notesInterval);
+      notesInterval = null;
+    }
+
+    // Button click handlers
+    document.querySelectorAll('.lace-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const voiceName = btn.dataset.voice;
+        const voiceAudio = document.getElementById('voice-' + voiceName);
+
+        // If same button pressed again while playing, pause it
+        if (currentVoice === voiceAudio && !voiceAudio.paused) {
+          voiceAudio.pause();
+          stopNotes();
+          window.restoreMusic();
+          return;
+        }
+
+        // If same button pressed again while paused, resume it
+        if (currentVoice === voiceAudio && voiceAudio.paused && voiceAudio.currentTime > 0) {
+          window.duckMusic();
+          voiceAudio.play().catch(err => console.log('Voice play error:', err));
+          startNotes();
+          return;
+        }
+
+        // Stop any currently playing voice
+        if (currentVoice && !currentVoice.paused) {
+          currentVoice.pause();
+          currentVoice.currentTime = 0;
+          stopNotes();
+        }
+
+        // Duck the background music
+        window.duckMusic();
+
+        // Play the voice recording
+        currentVoice = voiceAudio;
+        voiceAudio.currentTime = 0;
+        voiceAudio.volume = 1.0;
+        voiceAudio.play().catch(err => console.log('Voice play error:', err));
+
+        // Start the notes animation
+        startNotes();
+
+        // When voice ends, stop notes and restore music
+        voiceAudio.onended = () => {
+          stopNotes();
+          window.restoreMusic();
+          currentVoice = null;
+        };
+      });
+    });
+  </script>
+
+</body>
+</html>
