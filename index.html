@@ -790,6 +790,46 @@
       clearInterval(notesInterval);
       notesInterval = null;
     }
+    
+    // ===== AUDIO DUCKING =====
+// Replace 'bg-music' with the actual ID of your background music element
+const bgMusic = document.getElementById('bg-music'); 
+let fadeInterval = null;
+const DUCKED_VOLUME = 0.2; // The volume level when voice is playing (20%)
+const NORMAL_VOLUME = 1.0; // The normal volume level (100%)
+
+window.duckMusic = function() {
+  if (!bgMusic) return; // Exit if the background music element isn't found
+  
+  // Clear any ongoing volume changes to prevent stuttering
+  clearInterval(fadeInterval); 
+  
+  // Smoothly fade down
+  fadeInterval = setInterval(() => {
+    if (bgMusic.volume > DUCKED_VOLUME + 0.05) {
+      bgMusic.volume -= 0.05;
+    } else {
+      bgMusic.volume = DUCKED_VOLUME;
+      clearInterval(fadeInterval);
+    }
+  }, 50); // Adjust the '50' for a faster or slower fade
+};
+
+window.restoreMusic = function() {
+  if (!bgMusic) return;
+  
+  clearInterval(fadeInterval);
+  
+  // Smoothly fade back up
+  fadeInterval = setInterval(() => {
+    if (bgMusic.volume < NORMAL_VOLUME - 0.05) {
+      bgMusic.volume += 0.05;
+    } else {
+      bgMusic.volume = NORMAL_VOLUME;
+      clearInterval(fadeInterval);
+    }
+  }, 50);
+};
 
     // Button click handlers
     document.querySelectorAll('.lace-btn').forEach(btn => {
